@@ -44,7 +44,7 @@ public class AuthorService implements CrudInterface<Author, Long> {
                     foundAuthor.setDateBirthDay(author.getDateBirthDay());
                     foundAuthor.setBooks(author.getBooks());
                     return repository.save(foundAuthor);
-                }).orElse(null);
+                }).orElseThrow(()-> new AuthorNotFoundException(aLong));
     }
 
     @Override
@@ -52,7 +52,6 @@ public class AuthorService implements CrudInterface<Author, Long> {
         Author savedAuthor = repository.save(author);
         List<Book> books = author.getBooks();
         books.forEach(book -> {
-            System.out.println(book.getName());
             book.setAuthor(author);
             bookService.saveOrUpdate(book);
         });

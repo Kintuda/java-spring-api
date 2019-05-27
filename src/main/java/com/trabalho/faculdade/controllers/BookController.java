@@ -50,6 +50,7 @@ public class BookController {
         SucessResponse<Void> sucessResponse = new SucessResponse<>(true,HttpStatus.NO_CONTENT, LocalDateTime.now(),null);
         return new ResponseEntity<>(sucessResponse,sucessResponse.getStatus());
     }
+
     @RequestMapping(path = "/{id}", method = RequestMethod.DELETE)
     private ResponseEntity<SucessResponse> deleteById(@PathVariable Long id){
         service.deleteById(id);

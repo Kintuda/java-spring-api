@@ -13,13 +13,8 @@ public class SubErrors {
         return field;
     }
 
-    public Object getParameter() {
-        return parameter;
-    }
-
-    public SubErrors(String message, String field, Object parameter) {
+    public SubErrors(String message, String field) {
         this.message = message;
         this.field = field;
-        this.parameter = parameter;
     }
 }

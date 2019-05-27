@@ -1,7 +1,10 @@
 package com.trabalho.faculdade.services;
 
+import com.trabalho.faculdade.models.Author;
 import com.trabalho.faculdade.models.Book;
+import com.trabalho.faculdade.repositories.AuthorRepository;
 import com.trabalho.faculdade.repositories.BookRepository;
+import com.trabalho.faculdade.utils.exceptions.AuthorNotFoundException;
 import com.trabalho.faculdade.utils.exceptions.BookNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,6 +16,9 @@ public class BookService implements CrudInterface<Book, Long> {
 
     @Autowired
     private BookRepository repository;
+
+    @Autowired
+    private AuthorRepository authorRepository;
 
     @Override
     public List<Book> getAll() {
@@ -27,6 +33,10 @@ public class BookService implements CrudInterface<Book, Long> {
 
     @Override
     public Book saveOrUpdate(Book book) {
+        Author author = book.getAuthor();
+        if(author == null){
+            throw new AuthorNotFoundException(1);
+        }
         return repository.save(book);
     }
 
@@ -40,7 +50,7 @@ public class BookService implements CrudInterface<Book, Long> {
                     foundBook.setPublisher(book.getPublisher());
                     foundBook.setAuthor(book.getAuthor());
                     return repository.save(foundBook);
-                }).orElse(null);
+                }).orElseThrow(()->new BookNotFoundException(aLong));
     }
 
     @Override

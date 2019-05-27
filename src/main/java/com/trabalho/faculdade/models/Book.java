@@ -14,7 +14,6 @@ public class Book extends BaseModel{
     @NotBlank(message="Nome do livro deve ser informado!")
     private String name;
 
-//    @NotBlank(message="Data de publicação do livro deve ser informado!")
     @JsonFormat(pattern = "dd/MM/yyyy")
     private Date publication;
 

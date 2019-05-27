@@ -34,7 +34,7 @@ public class ExceptionMiddleware extends ResponseEntityExceptionHandler {
 
     private List<SubErrors> getErrors(MethodArgumentNotValidException ex) {
         return ex.getBindingResult().getFieldErrors().stream()
-                .map(error -> new SubErrors(error.getDefaultMessage(), error.getField(), error.getRejectedValue()))
+                .map(error -> new SubErrors(error.getDefaultMessage(), error.getField()))
                 .collect(Collectors.toList());
     }
 
